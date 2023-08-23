@@ -12,28 +12,35 @@ router.route("/add").post(async (req ,res) => {
         console.log(error)
         res.status(500).json({msg: error})
     }
-    
-    console.log("Add user visited")
-    // on success
 })
 
 router.route("/remove").post(async (req ,res) => {
-    console.log("user removed")
-    // on success
-    res.status(200).json({msg: "user Removed"})
+    try {
+        const resp = await User.deleteOne({email : req.body.email})
+        console.log(resp)
+        res.status(200).json({msg: "removed", removed: resp})
+    } catch (error) {
+        res.status(500).json({msg: error})
+    }
 })
 
-// router.route("/updateUser").update(async (req ,res) => {
-//     console.log("User Updated")
-//     // on success
-//     res.status(200).json({msg: "user updated"})
-// })
+router.route("/updateUser").post(async (req ,res) => {
+    // const resp = await User.updateOne({email: req.body.email},{req.body})
+    // on success
+    res.status(200).json({msg: "user updated"})
+})
 
-// router.route("/promoteToAdmin").update(async (req ,res) => {
-//     console.log("Promoted")
-//     // on success
-//     res.status(200).json({msg: "promoted"})
-// })
+router.route("/promoteToAdmin").post(async (req ,res) => {
+    const resp = await User.updateOne({email: req.body.email},{admin: true})
+    // on success
+    res.status(200).json({msg: `promoted ${req.body.email}`, resp : resp})
+})
+
+router.route("/demote").post(async (req ,res) => {
+    const resp = await User.updateOne({email: req.body.email},{admin: false})
+    // on success
+    res.status(200).json({msg: `demoted ${req.body.email}`, resp : resp})
+})
 
 
 module.exports = router
