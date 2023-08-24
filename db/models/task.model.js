@@ -18,7 +18,8 @@ const taskSchema = new Schema({
     lastAssignedTo: {type: Number, required: false},
     lastCompletedBy: {type: Number, required: false},
     currentlyAssignedTo: {type: Number, required: true},
-    assignmentDateTime: {type: Number, required: true}
+    assignmentDateTime: {type: Number, required: true},
+    association: {type: Array, required: true}
 })
 
 const Task = mongoose.model('Task', taskSchema)
