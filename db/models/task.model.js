@@ -1,25 +1,27 @@
+const moment = require("moment")
+const {v4:uuidv4} = require("uuid")
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 
 const taskSchema = new Schema({
-    id: {type: Number, required: true},
+    id: {type: String, required: false, default:uuidv4() },
     name: {type: String, required: true},
     desc: {type: String, required: true},
-    steps: {type: Array, required: true},
+    steps: {type: Array, required: false, default: []},
     duration: {type: Number, required: true},
     interval: {type: Number, required: true},
-    recurring: {type: Boolean, required: true, default: true},
-    special: {type: Boolean, required: true, default: false},
-    addedOn: {type: Number, required: true},
-    status: {type: Boolean, required: true, default: true},
-    inactiveFrom: {type: Number, required: false},
+    recurring: {type: Boolean, required: false, default: true},
+    special: {type: Boolean, required: false, default: false},
+    addedOn: {type: String, required: false, default: moment().clone().format("YYYYMMDDHHmmss")},
+    status: {type: Boolean, required: false, default: true},
+    inactiveFrom: {type: String, required: false},
     lastCompletedDate: {type: Number, required: false},
     lastAssignedTo: {type: Number, required: false},
     lastCompletedBy: {type: Number, required: false},
-    currentlyAssignedTo: {type: Number, required: true},
-    assignmentDateTime: {type: Number, required: true},
-    association: {type: Array, required: true}
+    currentlyAssignedTo: {type: Number, required: false},
+    assignmentDateTime: {type: Number, required: false},
+    association: {type: Object, required: false},
 })
 
 const Task = mongoose.model('Task', taskSchema)
