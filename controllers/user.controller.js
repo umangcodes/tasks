@@ -5,9 +5,14 @@ const router = require('express').Router()
 router.route("/add").post(async (req ,res) => {
     console.log(req.body)
     try {
-        const newUser = new User(req.body)
-        const resp = await newUser.save()
-        res.status(200).json({msg: "success", added: resp})
+        const findUser = await User.find({email : req.body.email})
+        if(findUser.length > 0){
+            res.status(403).json({msg: "user already exists"})
+        }else{
+            const newUser = new User(req.body)
+            const resp = await newUser.save()
+            res.status(200).json({msg: "success", added: resp})
+        }
     } catch (error) {
         console.log(error)
         res.status(500).json({msg: error})
@@ -28,6 +33,15 @@ router.route("/updateUser").post(async (req ,res) => {
     // const resp = await User.updateOne({email: req.body.email},{req.body})
     // on success
     res.status(200).json({msg: "user updated"})
+})
+
+router.route("/find").post(async (req, res) => {
+    try {
+        const findUser = await User.find({email : req.body.email})
+        res.status(200).json({msg: findUser})
+    } catch (error) {
+        res.status(500).json({msg: error})
+    }
 })
 
 router.route("/promoteToAdmin").post(async (req ,res) => {
