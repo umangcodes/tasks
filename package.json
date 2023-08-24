@@ -16,7 +16,9 @@
     "expressjs": "^1.0.1",
     "firebase": "^10.3.0",
     "joi": "^17.9.2",
-    "mongoose": "^7.4.4"
+    "moment": "^2.29.4",
+    "mongoose": "^7.4.4",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
