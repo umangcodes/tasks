@@ -7,7 +7,7 @@ const mongoose = require("mongoose")
 const connectDB = require("./db/connectDB")
 
 const userRoutes = require("./controllers/user.controller")
-
+const locationRoutes = require("./controllers/location.controller")
 const PORT = process.env.PORT || 3000
 
 const app = express()
@@ -19,5 +19,6 @@ app.use(bodyParser.urlencoded({extended:false}))
 
 
 app.use("/users", userRoutes)
+app.use("/location", locationRoutes)
 
 app.listen(PORT, () => {console.log(`server active at port: ${PORT}`)})
