@@ -8,6 +8,7 @@ const locationSchema = new Schema({
     id: {type: String, required: false, default: uuidv4()},
     name: {type: String, required: true},
     manager: {type: Object, required: true},
+    users: {type: Array, required: false},
     lists: {type: Array, required: false},
     addedOn: {type:String, required:false, default: moment().clone().format("YYYYMMDD")}
 })
